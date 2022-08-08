@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-    <title>Trang chu</title>
+    <title>Trang chỉnh sửa sản phẩm</title>
 @endsection
 
 
@@ -10,21 +10,7 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Starter Page</h1>
-                    </div><!-- /.col -->
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Starter Page</li>
-                        </ol>
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-            </div><!-- /.container-fluid -->
-        </div>
+        @include('partials.content-header', ['name'=>'category', 'key'=>'Add']);
         <!-- /.content-header -->
 
         <!-- Main content -->
@@ -32,21 +18,20 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-6">
-                        <form>
+                        <form action="{{route('categories.store')}}" method="post">
+                            @csrf
                             <div class="form-group">
                                 <label>Tên danh mục</label>
-                                <input type="email" class="form-control"
+                                <input type="text" class="form-control"
+                                       name="name"
                                        placeholder="Nhập tên danh mục">
                             </div>
 
                             <div class="form-group">
                                 <label>Chọn danh mục cha</label>
-                                <select class="form-control">
+                                <select class="form-control" name="parent_id">
                                     <option value="0">Chọn danh mục cha</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
+                                    {!! $htmlOption !!}}
                                 </select>
                             </div>
 
