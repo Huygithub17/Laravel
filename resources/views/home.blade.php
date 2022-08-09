@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-    <title>Trang chu</title>
+    <title>Trang chủ</title>
 @endsection
 
 
@@ -18,7 +18,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
-                        Trang chu
+                        Trang chủ
                     </div>
                 </div>
                 <!-- /.row -->

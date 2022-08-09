@@ -10,3 +10,5 @@ class Category extends Model
     use HasFactory;
     protected $fillable = ['name', 'parent_id', 'slug'];
 }
+
+//Thêm các dòng kia để có thể chỉnh sửa được dữ liệu;

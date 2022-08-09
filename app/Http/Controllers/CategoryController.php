@@ -16,10 +16,7 @@ class CategoryController extends Controller
     }
     //ok
     public function create(){
-        $data = $this->category->all();
-        $recusive = new Recusive($data);
-        $htmlOption = $recusive->categoryRecusive();
-
+        $htmlOption = $this->getCategory($parent_id = '');
         return view('category.add', compact('htmlOption'));
     }
 
@@ -36,6 +33,33 @@ class CategoryController extends Controller
         ]);
 
         return redirect()->route('categories.index');
+
+    }
+    //function chung:
+    public function getCategory($parent_id){
+        $data = $this->category->all();
+        $recusive = new Recusive($data);
+        $htmlOption = $recusive->categoryRecusive($parent_id);
+        return $htmlOption; // ok
+    }
+
+    // function nay dung de lay category ra theo id de chinh sua;
+    public function edit($id){
+        $category= $this ->category->find($id);
+        $htmlOption = $this->getCategory($category->parent_id);
+        return view('category.edit', compact('category', 'htmlOption'));
+    }
+
+    public function update($id, Request $request){
+        $this->category->find($id)->update([
+            'name' => $request->name,
+            'parent_id' => $request->parent_id,
+            'slug' => ''
+        ]);
+        return redirect()->route('categories.index');
+    }
+
+    public function delete(){
 
     }
 }

@@ -1,15 +1,16 @@
 @extends('layouts.admin')
 
 @section('title')
-    <title>Thêm danh mục sản phẩm</title>
+    <title>Chỉnh sửa sản phẩm</title>
 @endsection
+
 
 @section('content')
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        @include('partials.content-header', ['name'=>'category', 'key'=>'Add']);
+        @include('partials.content-header', ['name'=>'category', 'key'=>'Edit']);
         <!-- /.content-header -->
 
         <!-- Main content -->
@@ -17,12 +18,14 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-6">
-                        <form action="{{route('categories.store')}}" method="post">
+                        <form action="{{route('categories.update', ['id' => $category->id])}}" method="post">
                             @csrf
                             <div class="form-group">
                                 <label>Tên danh mục</label>
-                                <input type="text" class="form-control"
+                                <input type="text"
+                                       class="form-control"
                                        name="name"
+                                       value="{{$category->name}}"
                                        placeholder="Nhập tên danh mục">
                             </div>
 
