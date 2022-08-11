@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-use app\Http\Controllers\CategoryController;
+//use app\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +15,8 @@ use app\Http\Controllers\CategoryController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/admin', 'AdminController@loginAdmin');
+Route::post('/admin', 'AdminController@postloginAdmin');
 
 Route::get('user/{id}/{name}', function ($id, $name) {
     echo $id. "<br>";
@@ -28,51 +27,82 @@ Route::get('/home', function () {
     return view('home');
 });
 
-Route::prefix('categories')->group(function () {
-    Route::get('/', [
-        'as' => 'categories.index',
-        'uses' => 'App\Http\Controllers\CategoryController@index'
+Route::prefix('admin')->group(function () {
+    Route::prefix('categories')->group(function () {
+        Route::get('/', [
+            'as' => 'categories.index',
+            'uses' => 'CategoryController@index'
 
-    ]);
-    Route::get('/create', [
-        'as' => 'categories.create',
-        'uses' => 'App\Http\Controllers\CategoryController@create'
+        ]);
+        Route::get('/create', [
+            'as' => 'categories.create',
+            'uses' => 'CategoryController@create'
 
-    ]);
-    Route::post('/store', [
-        'as' => 'categories.store',
-        'uses' => 'App\Http\Controllers\CategoryController@store'
+        ]);
+        Route::post('/store', [
+            'as' => 'categories.store',
+            'uses' => 'CategoryController@store'
 
-    ]);
-    Route::get('/edit/{id}', [
-        'as' => 'categories.edit',
-        'uses' => 'App\Http\Controllers\CategoryController@edit'
-    ]);
+        ]);
+        Route::get('/edit/{id}', [
+            'as' => 'categories.edit',
+            'uses' => 'CategoryController@edit'
+        ]);
 
-    Route::post('/update/{id}', [
-        'as' => 'categories.update',
-        'uses' => 'App\Http\Controllers\CategoryController@update'
-    ]);
-    Route::get('/delete/{id}', [
-        'as' => 'categories.delete',
-        'uses' => 'App\Http\Controllers\CategoryController@delete'
-    ]);
+        Route::post('/update/{id}', [
+            'as' => 'categories.update',
+            'uses' => 'CategoryController@update'
+        ]);
+        Route::get('/delete/{id}', [
+            'as' => 'categories.delete',
+            'uses' => 'CategoryController@delete'
+        ]);
 
+    });
+
+    Route::prefix('menus')->group(function () {
+        Route::get('/', [
+            'as' => 'menus.index',
+            'uses' => 'MenuController@index'
+        ]);
+        Route::get('/create', [
+            'as' => 'menus.create',
+            'uses' => 'MenuController@create'
+        ]);
+        Route::post('/store', [
+            'as' => 'menus.store',
+            'uses' => 'MenuController@store'
+        ]);
+
+        Route::get('/edit/{id}', [
+            'as' => 'menus.edit',
+            'uses' => 'MenuController@edit'
+        ]);
+
+        Route::post('/update/{id}', [
+            'as' => 'menus.update',
+            'uses' => 'MenuController@update'
+        ]);
+
+        Route::get('/delete/{id}', [
+            'as' => 'menus.delete',
+            'uses' => 'MenuController@delete'
+        ]);
+    });
+
+    //product:
+    Route::prefix('products')->group(function () {
+        Route::get('/', [
+            'as' => 'products.index',
+            'uses' => 'AdminProductsController@index'
+        ]);
+        Route::get('/create', [
+            'as' => 'products.create',
+            'uses' => 'AdminProductsController@create'
+        ]);
+    });
 });
 
-Route::prefix('menus')->group(function () {
-    Route::get('/', [
-        'as' => 'menus.index',
-        'uses' => 'App\Http\Controllers\MenuController@index'
-    ]);
-    Route::get('/create', [
-        'as' => 'menus.create',
-        'uses' => 'App\Http\Controllers\MenuController@create'
-    ]);
-    Route::post('/store', [
-        'as' => 'menus.store',
-        'uses' => 'App\Http\Controllers\MenuController@store'
-    ]);
-});
+
 
 
