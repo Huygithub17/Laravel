@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-    <title>Trang chu</title>
+    <title>Trang Danh Mục</title>
 @endsection
 
 

@@ -5,7 +5,8 @@
 @endsection
 
 @section('css')
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet"/>
+    <link href= "{{ asset('vendors/select_2/select2.min.css') }}" rel="stylesheet" />
+    <link href= "{{ asset('admins/product/add/add.css') }}" rel="stylesheet" />
 @endsection
 
 @section('content')
@@ -13,30 +14,51 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        @include('partials.content-header', ['name'=>'Products', 'key'=>'Add']);
+        @include('partials.content-header', ['name'=>'Products', 'key'=>'Add'])
         <!-- /.content-header -->
 
+{{--        <div class="col-md-12">--}}
+{{--            @if ($errors->any())--}}
+{{--                <div class="alert alert-danger">--}}
+{{--                    <ul>--}}
+{{--                        @foreach ($errors->all() as $error)--}}
+{{--                            <li>{{ $error }}</li>--}}
+{{--                        @endforeach--}}
+{{--                    </ul>--}}
+{{--                </div>--}}
+{{--            @endif--}}
+{{--        </div>--}}
+
         <!-- Main content -->
+        <form action="{{route('products.store')}}" method="post" enctype="multipart/form-data">
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-6">
-                        <form action="" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
                                 <label>Tên sản phẩm</label>
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control @error('name') is-invalid @enderror"
                                        name="name"
-                                       placeholder="Nhập tên sản phẩm">
+                                       placeholder="Nhập tên sản phẩm"
+                                       value="{{old('name')}}"
+                                >
+                                @error('name')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="form-group">
                                 <label>Giá sản phẩm</label>
                                 <input type="text"
-                                       class="form-control"
+                                       class="form-control @error('price') is-invalid @enderror"
                                        name="price"
                                        placeholder="Nhập giá sản phẩm"
+                                       value="{{old('price')}}"
                                 >
+                                @error('price')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="form-group">
@@ -57,10 +79,13 @@
                             </div>
                             <div class="form-group">
                                 <label>Chọn danh mục </label>
-                                <select class="form-control select2_init" name="parent_id">
+                                <select class="form-control select2_init @error('category_id') is-invalid @enderror" name="category_id">
                                     <option value="">Chọn danh mục </option>
                                     {!! $htmlOption !!}}
                                 </select>
+                                @error('category_id')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="form-group">
@@ -70,19 +95,29 @@
                                 </select>
                             </div>
 
-                            <div class="form-group">
-                                <label>Nhập nội dung</label>
-                                <textarea name="content" class="form-control" rows="3"></textarea>
-                            </div>
+                    </div>
 
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Nhập nội dung</label>
+                            <textarea name="contents" class="form-control my-editor-mce @error('contents') is-invalid @enderror" rows="7">
+                                {{old('contents')}}
+                            </textarea>
+                            @error('contents')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
 
                 </div>
                 <!-- /.row -->
             </div><!-- /.container-fluid -->
         </div>
+        </form>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
@@ -90,20 +125,7 @@
 @endsection
 
 @section('js')
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
-    <script>
-        $(function () {
-            $(".tags_select_choose").select2({
-                tags: true,
-                tokenSeparators: [',', ' ']
-            });
-            // Nếu danh mục dài có thể tìm kiếm cho nhanh
-            $(".select2_init").select2({
-                placeholder: "Chọn danh mục",
-                allowClear: true
-            })
-
-        })
-    </script>
-
+    <script src="{{ asset('vendors/select_2/select2.min.js') }}"></script>
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+    <script src="{{ asset('admins/product/add/add.js') }}"></script>
 @endsection

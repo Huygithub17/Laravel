@@ -11,7 +11,7 @@ Nguyen Duy Huy _ 5/8/2022
     @yield('title')
 
     <!-- Font Awesome Icons : asset : hiểu là đường dẫn tới public thôi ! -->
-    <link rel="stylesheet" href="{{asset('/adminlte/plugins/fontawesome-free/css/all.min.css')}}">
+    <link rel="stylesheet" href="{{asset('[/adminlte/plugins/fontawesome-free/css/all.min.css')}}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('/adminlte/dist/css/adminlte.min.css')}}">
     <!-- Google Font: Source Sans Pro -->
