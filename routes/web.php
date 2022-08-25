@@ -149,7 +149,7 @@ Route::prefix('admin')->group(function () {
         ]);
     });
 
-    //Settings: continue
+    //Settings: ok
     Route::prefix('settings')->group(function () {
         Route::get('/', [
             'as' => 'settings.index',
@@ -177,6 +177,51 @@ Route::prefix('admin')->group(function () {
         ]);
 
 
+    });
+
+    //Users: continue
+    Route::prefix('users')->group(function () {
+        Route::get('/', [
+            'as' => 'users.index',
+            'uses' => 'AdminUsersController@index'
+        ]);
+        Route::get('/create', [
+            'as' => 'users.create',
+            'uses' => 'AdminUsersController@create'
+        ]);
+        Route::post('/store', [
+            'as' => 'users.store',
+            'uses' => 'AdminUsersController@store'
+        ]);
+        Route::get('/edit/{id}', [
+            'as' => 'users.edit',
+            'uses' => 'AdminUsersController@edit'
+        ]);
+        Route::post('/update/{id}', [
+            'as' => 'users.update',
+            'uses' => 'AdminUsersController@update'
+        ]);
+        Route::get('/delete/{id}', [
+            'as' => 'users.delete',
+            'uses' => 'AdminUsersController@delete'
+        ]);
+
+    });
+
+    //Roles: continue
+    Route::prefix('roles')->group(function () {
+        Route::get('/', [
+            'as' => 'roles.index',
+            'uses' => 'AdminRolesController@index'
+        ]);
+        Route::get('/create', [
+            'as' => 'roles.create',
+            'uses' => 'AdminRolesController@create'
+        ]);
+        Route::post('/store', [
+            'as' => 'roles.store',
+            'uses' => 'AdminRolesController@store'
+        ]);
     });
 });
 

@@ -1,0 +1,7 @@
+.alert-danger{
+    margin-top: 7px;
+    padding: 3px 5px;
+}
+.select2-selection__choice {
+    background-color: #0c525d !important;
+}

@@ -8,7 +8,7 @@ class AdminController extends Controller
 {
     public function loginAdmin()
     {
-        //dd(bcrypt('duyhuy'));
+        //dd(bcrypt('duyhuy')); exit;
         if (auth()->check()) {
             return redirect()->to('home');
         }
