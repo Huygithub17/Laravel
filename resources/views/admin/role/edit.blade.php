@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-    <title>Add Role</title>
+    <title>Edit Role</title>
 @endsection
 
 @section('css')
@@ -19,14 +19,14 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        @include('partials.content-header', ['name'=>'Roles', 'key'=>'Add']);
+        @include('partials.content-header', ['name'=>'Roles', 'key'=>'Edit']);
         <!-- /.content-header -->
 
         <!-- Main content -->
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <form action="{{route('roles.store')}}" method="post" enctype="multipart/form-data" style="width: 100%">
+                    <form action="{{route('roles.update', ['id'=>$role->id])}}" method="post" enctype="multipart/form-data" style="width: 100%">
                         <div class="col-md-10">
                             @csrf
                             <div class="form-group">
@@ -34,7 +34,7 @@
                                 <input type="text" class="form-control @error('name') is-invalid @enderror"
                                        name="name"
                                        placeholder="Nhập tên Roles"
-                                       value="{{ old('name') }}"
+                                       value="{{ $role->name }}"
                                 >
                                 @error('name')
                                 <div class="alert alert-danger">{{ $message }}</div>
@@ -45,7 +45,7 @@
                                 <label>Display name</label>
                                 <textarea
                                     class="form-control @error('display_name') is-invalid @enderror"
-                                    name="display_name" rows="4">{{ old('display_name') }}</textarea>
+                                    name="display_name" rows="4">{{ $role->display_name }}</textarea>
 
                                 @error('display_name')
                                 <div class="alert alert-danger">{{ $message }}</div>
@@ -77,6 +77,7 @@
                                                     <h5 class="card-title">
                                                         <label>
                                                             <input type="checkbox" name="permission_id[]"
+                                                                   {{$permissionChecked->contains('id', $permissionsChildrenItem->id) ? 'checked' : ''}}
                                                                    class="checkbox_children"
                                                                    value="{{$permissionsChildrenItem->id}}">
                                                         </label>
