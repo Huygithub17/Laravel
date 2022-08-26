@@ -85,6 +85,14 @@
                     </a>
                 </li>
 
+                <li class="nav-item">
+                    <a href="" class="nav-link">
+                        <p>
+                            Create Permissions
+                        </p>
+                    </a>
+                </li>
+
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

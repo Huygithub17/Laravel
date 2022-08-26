@@ -28,12 +28,12 @@ Route::get('/home', function () {
 });
 
 Route::prefix('admin')->group(function () {
-    // Category: ok
+    // Category: ok -1
     Route::prefix('categories')->group(function () {
         Route::get('/', [
             'as' => 'categories.index',
-            'uses' => 'CategoryController@index'
-
+            'uses' => 'CategoryController@index',
+            'middleware' => 'can:category-list'
         ]);
         Route::get('/create', [
             'as' => 'categories.create',
@@ -61,11 +61,12 @@ Route::prefix('admin')->group(function () {
 
     });
 
-    //Menu: ok
+    //Menu: ok -2
     Route::prefix('menus')->group(function () {
         Route::get('/', [
             'as' => 'menus.index',
-            'uses' => 'MenuController@index'
+            'uses' => 'MenuController@index',
+            'middleware' => 'can:menu-list'
         ]);
         Route::get('/create', [
             'as' => 'menus.create',
@@ -92,11 +93,12 @@ Route::prefix('admin')->group(function () {
         ]);
     });
 
-    //product: ok
+    //product: ok -3
     Route::prefix('products')->group(function () {
         Route::get('/', [
             'as' => 'products.index',
-            'uses' => 'AdminProductsController@index'
+            'uses' => 'AdminProductsController@index',
+            'middleware' => 'can:product-list'
         ]);
         Route::get('/create', [
             'as' => 'products.create',
@@ -120,11 +122,12 @@ Route::prefix('admin')->group(function () {
         ]);
     });
 
-    //slider: ok
+    //slider: ok -4
     Route::prefix('sliders')->group(function () {
         Route::get('/', [
             'as' => 'sliders.index',
-            'uses' => 'AdminSlidersController@index'
+            'uses' => 'AdminSlidersController@index',
+            'middleware' => 'can:slider-list'
         ]);
         Route::get('/create', [
             'as' => 'sliders.create',
@@ -149,11 +152,12 @@ Route::prefix('admin')->group(function () {
         ]);
     });
 
-    //Settings: ok
+    //Settings: ok -5
     Route::prefix('settings')->group(function () {
         Route::get('/', [
             'as' => 'settings.index',
-            'uses' => 'AdminSettingsController@index'
+            'uses' => 'AdminSettingsController@index',
+            'middleware' => 'can:setting-list'
         ]);
         Route::get('/create', [
             'as' => 'settings.create',
@@ -179,11 +183,12 @@ Route::prefix('admin')->group(function () {
 
     });
 
-    //Users: continue
+    //Users: ok -6
     Route::prefix('users')->group(function () {
         Route::get('/', [
             'as' => 'users.index',
-            'uses' => 'AdminUsersController@index'
+            'uses' => 'AdminUsersController@index',
+            'middleware' => 'can:user-list'
         ]);
         Route::get('/create', [
             'as' => 'users.create',
@@ -208,11 +213,12 @@ Route::prefix('admin')->group(function () {
 
     });
 
-    //Roles: continue
+    //Roles: ok -7
     Route::prefix('roles')->group(function () {
         Route::get('/', [
             'as' => 'roles.index',
-            'uses' => 'AdminRolesController@index'
+            'uses' => 'AdminRolesController@index',
+            'middleware' => 'can:role-list'
         ]);
         Route::get('/create', [
             'as' => 'roles.create',
@@ -233,6 +239,14 @@ Route::prefix('admin')->group(function () {
         Route::get('/delete/{id}', [
             'as' => 'roles.delete',
             'uses' => 'AdminRolesController@delete'
+        ]);
+    });
+
+    //Permissions: -8 continue
+    Route::prefix('permissions')->group(function () {
+        Route::get('/', [
+            'as' => 'permissions.index',
+            'uses' => 'AdminPermissionsController@index',
         ]);
     });
 });
