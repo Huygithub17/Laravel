@@ -86,9 +86,9 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a href="{{route('permissions.create')}}" class="nav-link">
                         <p>
-                            Create Permissions
+                            Create Permissions Table
                         </p>
                     </a>
                 </li>
