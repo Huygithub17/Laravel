@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Product;
+use App\Services\PermissionGateAndPolicyAccess;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -24,28 +26,17 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-        // category::
-        // Kết hợp cả policy và gate; ok
-        Gate::define('category-list', 'App\Policies\CategoryPolicy@view');
-        Gate::define('category-add', 'App\Policies\CategoryPolicy@create');
-        Gate::define('category-edit', 'App\Policies\CategoryPolicy@update');
-        Gate::define('category-delete', 'App\Policies\CategoryPolicy@delete');
 
-//        Gate::define('category-list', function ($user) {
-//            return $user->checkPermissionAccess(config('permissions.access.category-list'));
-//        });
+        // Tối ưu code theo video 93: ------->>>>>>>>>> lưu bên Services;
 
-        //List
-        Gate::define('menu-list', function ($user) {
-            return $user->checkPermissionAccess(config('permissions.access.menu-list'));
-        });
+        $permissionGateAndPolicy = new PermissionGateAndPolicyAccess();
+        $permissionGateAndPolicy->setGateAndPlicyAccess();
+
+        //-----------------------------------------------
+        // Gate: Phương pháp 1:
 
         Gate::define('slider-list', function ($user) {
             return $user->checkPermissionAccess(config('permissions.access.slider-list'));
-        });
-
-        Gate::define('product-list', function ($user) {
-            return $user->checkPermissionAccess(config('permissions.access.product-list'));
         });
 
         Gate::define('setting-list', function ($user) {
@@ -60,4 +51,5 @@ class AuthServiceProvider extends ServiceProvider
             return $user->checkPermissionAccess(config('permissions.access.role-list'));
         });
     }
+
 }
