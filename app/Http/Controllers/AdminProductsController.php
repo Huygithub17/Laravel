@@ -77,14 +77,16 @@ class AdminProductsController extends Controller
                 }
             }
             // Insert tags for product
+
             if (!empty($request->tags)) {
                 foreach ($request->tags as $tagItem) {
                     // Insert to tags
                     $tagInstance = $this->tag->firstOrCreate(['name' => $tagItem]);
                     $tagIds[] = $tagInstance->id;
                 }
+                $product->tags()->attach($tagIds);  // có thì mới attach, không thì thôi.
             }
-            $product->tags()->attach($tagIds);
+
             DB::commit();
             return redirect()->route('products.index');
 
@@ -138,6 +140,7 @@ class AdminProductsController extends Controller
                 }
             }
             // Update tags for product
+            $tagIds = [];
             if (!empty($request->tags)) {
                 foreach ($request->tags as $tagItem) {
                     // Insert to tags
@@ -145,7 +148,7 @@ class AdminProductsController extends Controller
                     $tagIds[] = $tagInstance->id;
                 }
             }
-            $product->tags()->sync($tagIds);  // tính năng đồng bộ, nếu đã có tags rồi thì giữ nguyên, còn không thì thêm mới.
+            $product->tags()->sync($tagIds);// tính năng đồng bộ, nếu đã có tags rồi thì giữ nguyên, còn không thì thêm mới.
 
             DB::commit();
             return redirect()->route('products.index');
